@@ -1,0 +1,46 @@
+﻿@using AppointmentBooking.Shared.Models
+
+<DataAnnotationsValidator />
+<div class="mb-3">
+    <label for="Name" class="form-label">Forename</label>
+    <div class="col-md-4">
+        <InputText class="form-control" @bind-Value="Appointment.Name" />
+    </div>
+    <ValidationMessage For="@(() => Appointment.Name)" />
+</div>
+<div class="mb-3">
+    <label for="DateTime" class="form-label">Date and Time</label>
+    <div class="col-md-4">
+        <InputDate Type="InputDateType.DateTimeLocal" class="form-control" @bind-Value="Appointment.AppointmentDateTime" />
+    </div>
+    <ValidationMessage For="@(() => Appointment.AppointmentDateTime)" />
+</div>
+<div class="mb-3">
+    <label for="Issue" class="form-label">Issue</label>
+    <div class="col-md-4">
+        <InputText class="form-control" @bind-Value="Appointment.Issue" />
+    </div>
+    <ValidationMessage For="@(() => Appointment.Issue)" />
+</div>
+<div class="mb-3">
+    <label for="Contact Number" class="form-label">Contact Number</label>
+    <div class="col-md-4">
+        <InputText class="form-control" @bind-Value="Appointment.ContactNumber" />
+    </div>
+    <ValidationMessage For="@(() => Appointment.ContactNumber)" />
+</div>
+<div class="mb-3">
+    <label for="EmailAddress" class="form-label">Email Address</label>
+    <div class="col-md-4">
+        <InputText class="form-control" @bind-Value="Appointment.EmailAddress" />
+    </div>
+    <ValidationMessage For="@(() => Appointment.EmailAddress)" />
+</div>
+
+
+@code {
+
+    [Parameter]
+    public Appointment Appointment { get; set; }
+
+}

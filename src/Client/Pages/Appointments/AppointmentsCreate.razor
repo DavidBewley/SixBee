@@ -1,0 +1,35 @@
+﻿<PageTitle>Create Appointment</PageTitle>
+
+<h3>Create Appointment</h3>
+
+@using AppointmentBooking.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+@page "/Appointments/Create"
+
+<h3>New Appointment</h3>
+
+<EditForm Model="@Appointment" OnValidSubmit="CreateAppointmentAsync">
+    <AppointmentEdit Appointment="Appointment" />
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</EditForm>
+
+@code {
+    public Appointment Appointment;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Appointment = new Appointment();
+    }
+
+    private async Task CreateAppointmentAsync()
+    {
+        await Http.PostAsJsonAsync("api/Appointment",Appointment);
+        NavigationManager.NavigateTo("/appointments");
+    }
+}

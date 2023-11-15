@@ -5,11 +5,11 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentBooking.Spec", "Tests\Spec\AppointmentBooking.Spec.csproj", "{D1D23604-DEBC-49C1-A058-62ED43DA7414}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentBooking.Server", "src\Server\AppointmentBooking.Server.csproj", "{9C8831C8-3AC6-42B0-AFE3-49097CA453A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentBooking.Server", "src\Server\AppointmentBooking.Server.csproj", "{9C8831C8-3AC6-42B0-AFE3-49097CA453A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentBooking.Client", "src\Client\AppointmentBooking.Client.csproj", "{9171E959-B3FB-4E96-8A7D-B0212D04EA9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentBooking.Client", "src\Client\AppointmentBooking.Client.csproj", "{9171E959-B3FB-4E96-8A7D-B0212D04EA9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentBooking.Shared", "src\Shared\AppointmentBooking.Shared.csproj", "{95F9B1CF-0BEF-40FF-A98C-ACBCE288AA1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentBooking.Shared", "src\Shared\AppointmentBooking.Shared.csproj", "{95F9B1CF-0BEF-40FF-A98C-ACBCE288AA1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

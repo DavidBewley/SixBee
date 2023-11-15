@@ -17,4 +17,12 @@
     <ProjectReference Include="..\Shared\AppointmentBooking.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Appointments\AppointmentsCreate.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Appointments\AppointmentsCreate.razor" />
+  </ItemGroup>
+
 </Project>
