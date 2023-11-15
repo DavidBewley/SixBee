@@ -23,6 +23,11 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\Appointments\AppointmentsCreate.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Appointments\AppointmentsUpdate.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Appointments\AppointmentsUpdate.razor" />
   </ItemGroup>
 
 </Project>

@@ -19,6 +19,21 @@ namespace AppointmentBooking.Server.Controllers
         public IActionResult GetAllAppointments()
             => Ok(_appointmentProcessor.GetAllAppointments());
 
+        [HttpGet]
+        [Route("{appointmentId}")]
+        public async Task<ActionResult> GetAppointment([FromRoute] Guid appointmentId)
+        {
+            ActionResult response = NotFound();
+
+            await _appointmentProcessor.GetAppointment(
+                appointmentId: appointmentId,
+                onSuccess: appointment => response = Ok(appointment),
+                onFailure: message => NotFound(message)
+            );
+
+            return response;
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateAppointments([FromBody] Appointment appointment)
         {
@@ -32,8 +47,8 @@ namespace AppointmentBooking.Server.Controllers
             ActionResult response = NotFound();
 
             await _appointmentProcessor.EditAppointment(
-                appointment:appointment,
-                onSuccess: appointment => response =  Ok(appointment),
+                appointment: appointment,
+                onSuccess: appointment => response = Ok(appointment),
                 onFailure: message => NotFound(message)
             );
 

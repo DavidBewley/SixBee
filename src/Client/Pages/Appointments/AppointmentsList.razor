@@ -38,7 +38,7 @@ else
                     <td>@appointment.ContactNumber</td>
                     <td>@appointment.EmailAddress</td>
                     <td>
-                        Approve Edit Delete
+                        <button class="btn btn-warning" @onclick='() => NavigationManager.NavigateTo($"/Appointments/Update/{appointment.AppointmentId}")'>Update</button>
                     </td>
                 </tr>
             }

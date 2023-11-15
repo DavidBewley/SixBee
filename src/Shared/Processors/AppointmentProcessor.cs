@@ -1,5 +1,6 @@
 ﻿using AppointmentBooking.Shared.Interfaces;
 using AppointmentBooking.Shared.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppointmentBooking.Shared.Processors
 {
@@ -31,6 +32,16 @@ namespace AppointmentBooking.Shared.Processors
             await _dbContext.Save();
 
             onSuccess(appointment);
+        }
+
+        public async Task GetAppointment(Guid appointmentId, Action<Appointment> onSuccess, Action<string> onFailure)
+        {
+            if (!_dbContext.Appointments.Any(a => a.AppointmentId == appointmentId))
+            {
+                onFailure("Unable to find a matching appointment with the provided Id");
+                return;
+            }
+            onSuccess(await _dbContext.Appointments.SingleAsync(a => a.AppointmentId == appointmentId));
         }
     }
 }

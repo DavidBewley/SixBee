@@ -117,5 +117,66 @@ namespace AppointmentBooking.Spec
             public void NewAppointmentIsReturned()
                 => Response.Should().BeEquivalentTo(AppointmentEdit);
         }
+
+        public class GetAppointmentBase : IAsyncLifetime
+        {
+            protected Mock<IDbContext> DbContext = new Mock<IDbContext>();
+            protected Guid AppointmentId;
+            protected Appointment? Response;
+            protected string? NotFoundMessage;
+
+            public async Task InitializeAsync()
+            {
+                var processor = new AppointmentProcessor(DbContext.Object);
+                await processor.GetAppointment(
+                    appointmentId: AppointmentId,
+                    onSuccess: response => Response = response,
+                    onFailure: message => NotFoundMessage = message
+                );
+            }
+
+            public Task DisposeAsync()
+                => Task.CompletedTask;
+        }
+
+        public class WhenGetAppointmentCalledWithNoAppointmentInDb : GetAppointmentBase
+        {
+            public WhenGetAppointmentCalledWithNoAppointmentInDb()
+            {
+                DbContext.Setup<DbSet<Appointment>>(x => x.Appointments)
+                    .ReturnsDbSet(new List<Appointment> {  }.AsQueryable());
+
+                AppointmentId = Guid.NewGuid();
+            }
+
+            [Fact]
+            public void AppointmentIsSearchedFor()
+                => DbContext.Verify(m => m.Appointments, Times.Once);
+
+            [Fact]
+            public void OnFailureMessageIsReturned()
+                => NotFoundMessage.Should().Be("Unable to find a matching appointment with the provided Id");
+        }
+
+        public class WhenGetAppointmentCalledWithValidAppointmentInDb : GetAppointmentBase
+        {
+            public WhenGetAppointmentCalledWithValidAppointmentInDb()
+            {
+                AppointmentId = Guid.NewGuid();
+                var oldAppointment = RandomData.Appointment();
+                oldAppointment.AppointmentId = AppointmentId;
+
+                DbContext.Setup<DbSet<Appointment>>(x => x.Appointments)
+                    .ReturnsDbSet(new List<Appointment> { oldAppointment }.AsQueryable());
+            }
+
+            [Fact]
+            public void AppointmentIsSearchedFor()
+                => DbContext.Verify(m => m.Appointments, Times.AtLeastOnce);
+
+            [Fact]
+            public void NewAppointmentIsReturned()
+                => Response.AppointmentId.Should().Be(AppointmentId);
+        }
     }
 }

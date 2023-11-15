@@ -1,0 +1,35 @@
+﻿<PageTitle>Update Appointment</PageTitle>
+
+<h3>Update Appointment</h3>
+
+@using AppointmentBooking.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+@page "/Appointments/Update/{AppointmentId:guid}"
+
+<EditForm Model="@Appointment" OnValidSubmit="UpdateAppointmentAsync">
+    <AppointmentEdit Appointment="Appointment" />
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</EditForm>
+
+@code {
+    public Appointment? Appointment;
+    [Parameter] public Guid AppointmentId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AppointmentId != Guid.Empty)
+            Appointment = await Http.GetFromJsonAsync<Appointment>($"api/Appointment/{AppointmentId}");
+    }
+
+    private async Task UpdateAppointmentAsync()
+    {
+        await Http.PutAsJsonAsync("api/Appointment", Appointment);
+        NavigationManager.NavigateTo("/appointments");
+    }
+}
