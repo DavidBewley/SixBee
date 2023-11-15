@@ -25,5 +25,19 @@ namespace AppointmentBooking.Server.Controllers
             await _appointmentProcessor.CreateAppointment(appointment);
             return Ok();
         }
+
+        [HttpPut]
+        public async Task<IActionResult> EditAppointment([FromBody] Appointment appointment)
+        {
+            ActionResult response = NotFound();
+
+            await _appointmentProcessor.EditAppointment(
+                appointment:appointment,
+                onSuccess: appointment => response =  Ok(appointment),
+                onFailure: message => NotFound(message)
+            );
+
+            return response;
+        }
     }
 }
