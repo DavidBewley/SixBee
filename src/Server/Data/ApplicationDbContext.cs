@@ -5,6 +5,7 @@ using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 
 namespace AppointmentBooking.Server.Data
 {
@@ -18,6 +19,6 @@ namespace AppointmentBooking.Server.Data
 
         public DbSet<Appointment> Appointments { get; set; }
 
-        public IQueryable<Appointment> AppointmentsDataSet => Appointments.AsQueryable();
+        public async Task Save() => await SaveChangesAsync();
     }
 }

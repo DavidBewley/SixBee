@@ -12,6 +12,12 @@ namespace AppointmentBooking.Shared.Processors
         }
 
         public List<Appointment> GetAllAppointments() 
-            => _dbContext.AppointmentsDataSet.ToList();
+            => _dbContext.Appointments.ToList();
+
+        public async Task CreateAppointment(Appointment appointment)
+        {
+            _dbContext.Appointments.Add(appointment);
+            await _dbContext.Save();
+        }
     }
 }
