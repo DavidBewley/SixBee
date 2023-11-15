@@ -1,5 +1,7 @@
 using AppointmentBooking.Server.Data;
 using AppointmentBooking.Server.Models;
+using AppointmentBooking.Shared.Interfaces;
+using AppointmentBooking.Shared.Processors;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +28,9 @@ namespace AppointmentBooking
 
             builder.Services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+            builder.Services.AddTransient<IDbContext,ApplicationDbContext>();
+            builder.Services.AddTransient<AppointmentProcessor>();
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
