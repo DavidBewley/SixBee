@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Shared\AppointmentBooking.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Appointments\" />
-  </ItemGroup>
-
 </Project>

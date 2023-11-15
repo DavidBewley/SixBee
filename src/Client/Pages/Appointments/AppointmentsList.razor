@@ -1,0 +1,63 @@
+﻿<PageTitle>Appointments</PageTitle>
+
+@page "/Appointments"
+<h3>Appointments</h3>
+
+@using AppointmentBooking.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<button class="btn btn-primary" @onclick='() => NavigationManager.NavigateTo("/Appointments/Create")'>Create</button>
+
+@if (!AppointmentList.Any())
+{
+    <h4>No Appointments could be found</h4>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Appointment Time</th>
+                <th scope="col">Issue</th>
+                <th scope="col">Contact Number</th>
+                <th scope="col">Email Address</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in AppointmentList)
+            {
+                <tr @key=appointment>
+                    <td>@appointment.Name</td>
+                    <td>@appointment.AppointmentDateTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    <td>@appointment.Issue</td>
+                    <td>@appointment.ContactNumber</td>
+                    <td>@appointment.EmailAddress</td>
+                    <td>
+                        Approve Edit Delete
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    protected List<Appointment> AppointmentList = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetAppointments();
+    }
+
+    private async Task GetAppointments()
+    {
+        var appointments = await Http.GetFromJsonAsync<List<Appointment>>("api/Appointment");
+        if (appointments != null)
+            AppointmentList = appointments;
+    }
+}
